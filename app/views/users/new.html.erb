@@ -1,0 +1,50 @@
+<div style="width:50vw; height: 75vh; margin: 2rem 0 0 2rem">
+<%# //////////////imagen costado (al azar)//////////////////// %>
+    <% if @images.present?%>
+    <div style="background-image: url(<%= @images[0].url %>); width: 100%; height: 100%; background-size: cover; background-position: center">
+    </div>
+    <% end %>
+</div>
+<div class="contenedor">
+    <div>
+        <h3 style="color: #3B3B3B">Nuevo usuario</h3>
+    </div>
+    <hr>
+    
+    <%= form_with(url: cu_path, model: @user, local: true) do |j| %>
+        <div class="mb-3">
+            <%= j.label :nombre, class:"texto-input" %>
+            <%= j.text_field :name, class: 'form-control' %> 
+        </div>
+            <% if @user.errors[:name].any? %>
+		        <p> No puedes dejar el nombre vacio </p>
+	        <% end %>
+        <div class="mb-3">
+            <%= j.label :email, class:"texto-input" %>
+            <%= j.email_field :email, class: 'form-control' %>
+        </div>
+            <% if @user.errors[:email].any? %>
+		        <p> Debes escribir un email valido </p>
+	        <% end %> 
+        <div class="mb-3">
+            <%= j.label :contraseña, class:"texto-input" %>
+            <%= j.text_field :password, type: "password", class: 'form-control' %>
+            <%= j.label "confirmar contraseña", class:"texto-input" %>
+            <%= j.text_field :password_confirmation, type: "password", class: 'form-control' %>
+        </div>
+            <% if @user.errors[:password].any? %>
+		        <p> No puedes hacer un usuario sin contraseña </p>
+	        <% end %>
+            <% if @user.errors[:password_confirmation].any? %>
+		        <p> Debes escribir nuevamente la contraseña para confirmarla </p>
+	        <% end %>
+        <div class="mb-3">
+            <%= j.label :foto, class:"texto-input" %>
+            <%= j.text_field :photo, class: 'form-control' %> 
+        </div>
+            <% if @user.errors[:photo].any? %>
+		        <p> Debes ingresar la URL de la imagen </p>
+	        <% end %>
+        <div><%= j.submit "entrar", class: "btn btn-info"%> </div>
+    <% end %>
+</div>

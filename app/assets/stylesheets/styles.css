@@ -1,0 +1,61 @@
+/* //////////////////root de la pagina//////////////////////////////// */
+
+.navbar {
+    height: 10vh;
+}
+
+.link-nav{
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a:hover {
+    color:white;
+  }
+
+h1{
+    font-family: 'Roboto', bold;
+    font-style: italic;
+}
+
+
+/* //////////////////sessions new ///////////////////////////////////////// */
+
+.contenedor{
+    display: inline-block;
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    background-color: #E5E5E5;
+    padding: 1rem 4rem;
+    border-radius: 20px;
+}
+
+.texto-input{
+    font-weight: 1;
+    font-style: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #3B3B3B;
+}
+
+
+/* ///////////////////////// TWEETS INDEX //////////////////////////////////////// */
+
+.title {
+    font-family: 'Roboto', bold;
+    font-weight: 700;
+    color: #3B3B3B;
+}
+
+.content {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 200;
+}
+
+.time-ago{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 13px;
+    color: #427e91;
+}

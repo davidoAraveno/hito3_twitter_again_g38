@@ -1,0 +1,21 @@
+<div class="mb-5">
+    <h2> Agregar imagen para la aplicacion </h2>
+    <%= form_with(url: sc_path,model: @image, local: true) do |f| %>
+        <%= f.text_field :url, placeholder: "ingrese la url de la imagen" %>
+        <%= f.submit 'guardar' %>
+    <% end %>
+</div>
+
+<h4> Imagenes subidas </h4>
+<div class="d-flex flex-wrap">
+    <% @images.each do |i| %>
+        <div style="background-image: url(<%= i.url%>); width:100px; height: 100px; background-size: cover; background-position: center">
+           
+        </div>
+    <% end %>
+</div>
+
+<% @images.each do |x| %>
+    <%= x.url %>
+    <br>
+<% end %>

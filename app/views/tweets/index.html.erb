@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-around mb-3" style="margin: 0 14rem">
+    <form>
+        <input type="text" name="busqueda">
+        <input type="submit" value="buscar" class="btn btn-info" style="font-size:0.8rem;">
+    </form>
+    
+    <form>
+        <% if params[:tweets_todos] %>
+            <button type="submit" name="tweets_amigos", value="todos los tweets" style="background: #D5D5D5; border: none; color: #3B3B3B; border-radius: 7px" class="d-flex align-items-center"> 
+                <p class="px-2"> <i class="fas fa-users text-info" style="font-size: 1.5rem"></i> ver todos los tweets </p> 
+            </button>
+        <% else %>
+            <button type="submit" name="tweets_todos", value="tweets de amigos" style="background: #D5D5D5; border: none; color: #3B3B3B; border-radius: 7px" class="d-flex align-items-center"> 
+                <p class="px-2"> <i class="fas fa-user-friends" style="color: #FF7D33; font-size: 1.5rem"></i> ver tweets de amigos </p> 
+            </button>
+
+        <% end %>
+    </form>
+</div>
+
+<%# ////////////////////////////FORMULARIO PARA PUBLICAR TWEET//////////////////////////// %>
+
+<% if session[:user_id] %>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+                <div class="col-md-7 mb-3 py-2" style="background: #D5D5D5; border-radius: 15px">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+                            <div style="background-image:url(<%= current_user.photo %>); width: 50px; height: 50px; background-size: cover; background-position: center; border-radius:50px">
+
+                            </div>
+                            <div style="margin-left: 1rem">
+                                <p class="title" style="font-size:1.5rem;">Crear Tweet! </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin: 5px">
+                    <div>
+                        <%= form_with(url: ct_path, model: @tweet, local:true) do |f| %>
+                            <div class="text-center">
+                                <% if params[:retweet].present? %>
+                                    <%= f.text_area :content, :size => "68x4", placeholder:"Agrega una respuesta #{current_user.name}", style: "border: none; font-family: Verdana, Geneva, Tahoma, sans-serif;" %>
+                                <% else %>
+                                    <%= f.text_area :content, :size => "68x4", placeholder:"¿Que estas pensando #{current_user.name}?", style: "border: none; font-family: Verdana, Geneva, Tahoma, sans-serif;" %>
+                                <% end %>
+                                <%= f.number_field :retweets, value: 0, type: "hidden" %>
+                                <%= f.number_field :tweet_id, value: params[:retweet], type: "hidden" %>
+                            </div>
+     <%# /////////////////RETWEET EN FORMULARIO EN CASO DE QUE EXISTA UN RETWEET////////////////////                        %>
+                            <% if params[:retweet].present? %>
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex">
+                                            <div style="background-image:url(<%= @tweet.tweet.user.photo %>); width: 50px; height: 50px; background-size: cover; background-position: center; border-radius:50px">
+
+                                            </div>
+                                            <div style="margin-left: 2rem">
+                                                <h4><%= @tweet.tweet.user.name.capitalize %> </h4>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="time-ago btn-info"> <%= time_ago_in_words(@tweet.tweet.created_at) %> </p>
+                                        </div>
+                                    </div>
+                                     <hr style="margin: 10px">
+                                    <div class="text-center">
+                                        <p> <%= @tweet.tweet.content.capitalize %> </p>
+                                    </div>
+                                </div>
+                            <% end %>
+    <%# //////////////////////////////////////////////////////////////////////////                         %>
+                            <div class="d-flex justify-content-end">
+                                <%= f.submit 'twittear', style: 'border-radius: 50px;', class:"btn btn-info" %>
+                            </div>
+                        <% end %>
+                        
+                    </div>
+                </div> 
+        </div>
+    </div>
+<% end %>
+
+<%# /////////////////////// TWEET PUBLICADOS /////////////////////////////////////// %>
+
+<% if @tweets.size == 0 %>
+    <h4 class="text-center" style="color: #3B3B3B"> No hay tweets publicados </h4>
+<% else %>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <% @tweets.each do |i| %>
+                <% if params[:tweets_todos] %>
+                    <%= render 'form', i: i, instancia: @friend %>
+                <% else %>
+                     <% if @yo.friends.find_by(friend_id: i.user.id) || @yo.id == i.user.id %>
+                        <%= render 'form', i: i, instancia: @friend %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+<% end %>
+

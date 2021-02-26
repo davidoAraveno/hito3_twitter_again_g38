@@ -1,0 +1,20 @@
+
+<div class="text-center">
+    <h4 class="title"> Detalle del tweet de <%=@tweet.user.name.capitalize%> </h4>
+    <h4 class="content" style="font-size: 1rem;"> Subido el <%= @tweet.created_at%> </h4>
+<div>
+
+<h5> Total de personas que dieron me gusta: <%= @tweet.cant_likes %> </h5>
+<div class="d-flex justify-content-center" style="background: #D5D5D5; margin: 0 15rem; border-radius: 15px">
+    <% @tweet.likes.each do |i| %>
+        <div class="mx-3">
+            <div style="background-image: url(<%= i.user.photo %>); width:75px; height: 75px; background-size: cover; background-position: center; border-radius:50px">
+            </div>
+            <div class="text-center">
+                <h5><%= i.user.name%> </h5>
+            </div>
+        </div>
+    <% end %>
+</div>
+
+<%= link_to 'volver a tweets', i_tweets_path, class:"text-info"%>

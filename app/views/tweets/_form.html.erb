@@ -1,0 +1,84 @@
+<div class="col-md-7 mb-3 pt-2" style="background: #D5D5D5; border-radius: 15px">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <div style="background-image:url(<%= i.user.photo %>); width: 50px; height: 50px; background-size: cover; background-position: center; border-radius:50px">
+
+            </div>
+            <div style="margin-left: 1rem" class="title">
+                <h4><%= i.user.name.capitalize %> </h4>
+            </div>
+        </div>
+        <div>
+            <a href="<%= st_path(i.id) %>" class="time-ago"> <%= time_ago_in_words(i.created_at) %> </a>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+    <hr style="margin: 10px">
+    <div style="border-radius: 5px; padding-left:1rem;">
+        <p style="color:#3B3B3B" class="content"><%= i.content.gsub(/#\w+/){|word| link_to word, busqueda_tag_path(word), style: "color:#FF7D33;"}.html_safe %> </p>
+    </div>
+    <%# ////////////////////////////RETWEET EN EL TWEET/////////////////////////////////////////////                 %>
+    <% if i.tweet_id != nil %>
+        <div class="col-md-12 mb-3 pt-2 container-fluid" style="border-radius: 15px; border: 2px solid #B3B3B3">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    <div style="background-image:url(<%= i.tweet.user.photo %>); width: 50px; height: 50px; background-size: cover; background-position: center; border-radius:50px">
+
+                    </div>
+                    <div style="margin-left: 2rem" class="title">
+                        <h5>Retweet: <%= i.tweet.user.name.capitalize %> </h5>
+                    </div>
+                </div>
+                <div>
+                    <p class="time-ago"> <%= time_ago_in_words(i.tweet.created_at) %> </p>
+                </div>
+            </div>
+            <hr style="margin: 10px 0; background: #B3B3B3; padding: 0.5px 0">
+            <div>
+                <p class="content"> <%= i.tweet.content.capitalize %> </p>
+                
+            </div>
+        </div>
+    <% end%>
+    <%# //////////////////////////////////////BOTONES RETWEET Y ME GUSTA//////////////////////////////////////////////////                 %>
+    <% if session[:user_id] %>
+        <div class="d-flex">
+            <div style="border-radius: 15px; padding: 0;">
+                <a href="<%= retweet_path(i.id) %>">
+                    <p style="font-size: 1.6rem;" class="text-info"> <i class="fas fa-retweet"></i> <%= i.retweets %> </p>
+                </a>
+            </div>
+            <div style="margin-left: 1rem;">
+                <a href="<%= nuevo_like_path(i.id, session[:user_id]) %>">
+                    <% if i.likes.find_by(user_id: session[:user_id], tweet_id: i.id) %>
+                        <p style="font-size: 1.3rem;" class="text-info"> <i class="fas fa-heart" style="color: #CC3366"></i> <%= i.cant_likes %> </p>
+                    <% else %>
+                        <p style="font-size: 1.3rem;" class="text-info"> <i class="fas fa-thumbs-up"></i> <%= i.cant_likes %> </p>
+                    <% end %>
+                </a>
+            </div>
+            <%# ///////////////////////////BOTON SEGUIR////////////////////////// %>
+            <div class="px-2">
+                <% if Friend.find_by(user_id: session[:user_id], friend_id: i.user.id) %>
+                    <%= form_with(url: d_friend_path, model: instancia, local: true) do |f| %>
+                        <%= f.number_field :user_id, value: session[:user_id], type: "hidden" %>
+                        <%= f.number_field :friend_id, value: i.user.id, type: "hidden" %>
+                        <%= button_tag type: 'submit', style:"background:none; border: none; font-size: 1.3rem; color: #FF7D33" do %>
+                            <i class="fas fa-user-friends"></i>
+                        <% end %>
+                    <% end %>
+                <% else %>
+                     <%= form_with(url: c_friend_path, model: instancia, local: true) do |f| %>
+                        <%= f.number_field :user_id, value: session[:user_id], type: "hidden" %>
+                        <%= f.number_field :friend_id, value: i.user.id, type: "hidden" %>
+                        <%= button_tag type: 'submit', style:"background:none; border: none; font-size: 1.3rem", class:"text-info" do %>
+                            <i class="fas fa-user-slash"></i>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+</div> 

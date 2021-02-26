@@ -1,0 +1,10 @@
+<header class="container-fluid" style="height:90vh">
+    <h1 id="ashe1" style="font-size: 2rem; margin-left: 8.5rem;" class="text-info"> Se Tú, se Túiter </h1>
+    <div class="row d-flex justify-content-center align-items-center">
+        <% @images.each do |i| %>
+            <div class="col-md-3 mx-1 mb-2 border fotos" style="background-image: url(<%= i.url %>); width: 200px; height: 200px; background-size: cover; background-position: center">
+            </div>
+        <% end %>
+    </div>
+
+</header>
