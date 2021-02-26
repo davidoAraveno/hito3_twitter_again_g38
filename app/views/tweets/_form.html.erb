@@ -69,6 +69,14 @@
                             <i class="fas fa-user-friends"></i>
                         <% end %>
                     <% end %>
+                <% elsif i.user.id == session[:user_id] %>
+                    <%= form_with(url: c_friend_path, model: instancia, local: true) do |f| %>
+                        <%= f.number_field :user_id, value: session[:user_id], type: "hidden" %>
+                        <%= f.number_field :friend_id, value: i.user.id, type: "hidden" %>
+                        <%= button_tag type: 'submit', style:"background:none; border: none; font-size: 1.3rem", class:"text-info" do %>
+                           
+                        <% end %>
+                    <% end %>
                 <% else %>
                      <%= form_with(url: c_friend_path, model: instancia, local: true) do |f| %>
                         <%= f.number_field :user_id, value: session[:user_id], type: "hidden" %>
