@@ -1,8 +1,10 @@
 <div class="d-flex justify-content-around mb-3" style="margin: 0 14rem">
-    <form>
-        <input type="text" name="busqueda">
-        <input type="submit" value="buscar" class="btn btn-info" style="font-size:0.8rem;">
-    </form>
+    <% if session[:user_id] %>
+        <form>
+            <input type="text" name="busqueda">
+            <input type="submit" value="buscar" class="btn btn-info" style="font-size:0.8rem;">
+        </form>
+    <% end %>
     
     <form>
         <% if params[:tweets_todos] %>
@@ -10,10 +12,13 @@
                 <p class="px-2"> <i class="fas fa-users text-info" style="font-size: 1.5rem"></i> ver todos los tweets </p> 
             </button>
         <% else %>
-            <button type="submit" name="tweets_todos", value="tweets de amigos" style="background: #D5D5D5; border: none; color: #3B3B3B; border-radius: 7px" class="d-flex align-items-center"> 
-                <p class="px-2"> <i class="fas fa-user-friends" style="color: #FF7D33; font-size: 1.5rem"></i> ver tweets de amigos </p> 
-            </button>
+            <% if session[:user_id] %>
+                <button type="submit" name="tweets_todos", value="tweets de amigos" style="background: #D5D5D5; border: none; color: #3B3B3B; border-radius: 7px" class="d-flex align-items-center"> 
+                    <p class="px-2"> <i class="fas fa-user-friends" style="color: #FF7D33; font-size: 1.5rem"></i> ver tweets de amigos </p> 
+                </button>
+            <% else %>
 
+            <% end %>
         <% end %>
     </form>
 </div>
@@ -89,6 +94,8 @@
         <div class="row d-flex justify-content-center">
             <% @tweets.each do |i| %>
                 <% if params[:tweets_todos] %>
+                    <%= render 'form', i: i, instancia: @friend %>
+                <% elsif !session[:user_id] %>
                     <%= render 'form', i: i, instancia: @friend %>
                 <% else %>
                      <% if @yo.friends.find_by(friend_id: i.user.id) || @yo.id == i.user.id %>
