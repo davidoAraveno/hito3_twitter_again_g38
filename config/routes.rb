@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  # //////api////////
+  get 'tweets/news', to: 'tweets#news'
   
   # ///////sesiones///////
   get 's/new', to: 'sessions#new'

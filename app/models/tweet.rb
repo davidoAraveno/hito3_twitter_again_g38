@@ -8,6 +8,5 @@ class Tweet < ApplicationRecord
     self.likes.size
   end
 
-
-
+ 
 end

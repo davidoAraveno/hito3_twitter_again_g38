@@ -15,6 +15,8 @@ class TweetsController < ApplicationController
       if session[:user_id]
         @yo = User.find(session[:user_id])
       end
+
+
   end
 
   def show
@@ -30,6 +32,13 @@ class TweetsController < ApplicationController
     else
       redirect_to i_tweets_path
     end
+  end
+
+  def news
+    @tweets = Tweet.all.order(created_at: :desc)
+    @tweet = @tweets[0].likes.size
+
+    render json: @tweets.to_json
   end
 
   private
