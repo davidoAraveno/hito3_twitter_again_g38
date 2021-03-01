@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'i/user', to: "users#index"
   post 'c/user', to: "users#create", as: "cu"
 
+<<<<<<< HEAD
   # /////////////modelo friend/////////////////////
   post 'c/friend', to: 'friends#create', as: 'c_friend'
   post 'd/friend', to: 'friends#destroy', as: 'd_friend'
@@ -34,6 +35,14 @@ Rails.application.routes.draw do
 
   get 'tweets/index/:retweet', to: 'tweets#index', as: 'retweet'
   
+=======
+  # //////////modelo tweet///////////////////
+  get 'i/tweets', to: 'tweets#index'
+
+  get 'tweets/:retweet', to: 'tweets#index', as: 'retweet'
+  post 'c/tweets', to: 'tweets#create', as: 'ct'
+
+>>>>>>> bc0eeae6b38da39fc8ee8764f6e8db49b6d0f7cf
   get 's/tweets/:id', to: 'tweets#show', as: 'st'
 
   # ////////////modelo like//////////////////

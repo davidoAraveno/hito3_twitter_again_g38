@@ -20,7 +20,6 @@ class SessionsController < ApplicationController
       else
         redirect_to images_path, notice: "error al intentar guardar"
       end
-
       # ////////////////////crear nueva sesion de usuario//////////////////
     elsif params[:user].present?
       @user = User.find_by_email(params[:user][:email])

@@ -3,9 +3,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    # ////////imagen del costado en el registro de usuarios////////////////////
     @images = Image.all.shuffle.take(1)
-    
     @user = User.new
   end
 
