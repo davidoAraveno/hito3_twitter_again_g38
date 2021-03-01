@@ -1,6 +1,7 @@
 class TweetsController < ApplicationController
   def index
       @tweet = Tweet.new
+
       # //////////////////INSTANCIA PARA HACER UN RETWEET//////////////////////
       if params[:retweet].present?
         @tweet.tweet_id = params[:retweet]
@@ -13,11 +14,11 @@ class TweetsController < ApplicationController
         @tweets = Tweet.all.reverse
       end
 
+      # ///////////////////datos del usuario activo en la aplicacion///////////////////////////
       @friend = Friend.new
       if session[:user_id]
         @yo = User.find(session[:user_id])
-      end
-
+      end      
 
   end
 

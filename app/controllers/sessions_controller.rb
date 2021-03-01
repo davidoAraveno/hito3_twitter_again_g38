@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
       else
         redirect_to images_path, notice: "error al intentar guardar"
       end
+
       # ////////////////////crear nueva sesion de usuario//////////////////
     elsif params[:user].present?
       @user = User.find_by_email(params[:user][:email])
@@ -40,6 +41,7 @@ class SessionsController < ApplicationController
   end
 
   def images
+    # /////////////vista para guardar imagenes para usar en la aplicacion///////////////////////
     @image = Image.new
     @images = Image.all
   end
