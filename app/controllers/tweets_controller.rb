@@ -1,10 +1,12 @@
 class TweetsController < ApplicationController
   def index
       @tweet = Tweet.new
+      # //////////////////INSTANCIA PARA HACER UN RETWEET//////////////////////
       if params[:retweet].present?
         @tweet.tweet_id = params[:retweet]
       end
 
+      # ///////////////////BUSCADOR DE TWEETS/////////////////////////////
       if params[:busqueda]
         @tweets = Tweet.where('content LIKE ?', "%#{params[:busqueda]}%")
       else
@@ -32,13 +34,6 @@ class TweetsController < ApplicationController
     else
       redirect_to i_tweets_path
     end
-  end
-
-  def news
-    @tweets = Tweet.all.order(created_at: :desc)
-    @tweet = @tweets[0].likes.size
-
-    render json: @tweets.to_json
   end
 
   private

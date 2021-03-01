@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
 
+
   # //////api////////
-  get 'tweets/news', to: 'tweets#news'
+  get 'api/news', to: 'apis#index'
+  get 'api/:fecha1/:fecha2', to:'apis#search'
+
   
   # ///////sesiones///////
   get 's/new', to: 'sessions#new'
