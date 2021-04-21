@@ -23,6 +23,5 @@ class ApisController < ApplicationController
     end
   end
 
-  private
 
 end

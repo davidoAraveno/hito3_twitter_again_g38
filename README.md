@@ -1,10 +1,9 @@
 # README
-El seed esta listo para ser ejecutado (agregara las imagenes necesarias para no encontrar errores en las secciones donde van imagenes.
 
-No hay usuarios ni tweets creados por lo que debes crear tu cuenta y hacer tweets.
-
-El endpoint para ver todos los tweets guardados es:
+repare el endpoint para ver todos los tweets con el formato que pidieron
   localhost:3000/api/news
-  
-El endpoint para buscar tweets que esten dentro de un rango es:
+
+repare el endpoint para buscar tweets que esten dentro de un rango de fecha
   localhost:3000/api/:fecha1/:fecha2
+
+  Los commits en los que estan estos cambios son los 2 ultimos (hito 3 historia 1 y hito 3 historia 2)
