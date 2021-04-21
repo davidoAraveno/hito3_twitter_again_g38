@@ -2,7 +2,7 @@ class ApisController < ApplicationController
 
    # ///////////////////////////API/////////////////////////////////
   def index
-    @tweets = Tweet.all.limit(50).pluck_to_hash(:id, :content, :user_id, :like_count, :retweets)
+    @tweets = Tweet.all.limit(50).pluck_to_hash(:id, :content, :user_id, :like_count, :retweets, :created_at)
     render json: @tweets.to_json
     
   end

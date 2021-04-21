@@ -85,6 +85,7 @@ Image.create([
 
 ]);
 
+
 50.times do |i|
     User.create(
         [
@@ -106,8 +107,8 @@ User.all.each do |u|
                 content: Faker::Lorem.paragraph_by_chars(number: 20),
                 user_id: u.id,
                 retweets: rand(100),
-                like_count: rand(500)
-
+                like_count: rand(500),
+                created_at: Faker::Date.between(from: '2021-01-01', to: '2021-04-25')
             }
         ]
     )
