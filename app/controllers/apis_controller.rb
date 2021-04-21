@@ -2,8 +2,9 @@ class ApisController < ApplicationController
 
    # ///////////////////////////API/////////////////////////////////
   def index
-    @tweets = Tweet.all.order(created_at: :desc)
+    @tweets = Tweet.all.limit(50).pluck_to_hash(:id, :content, :user_id, :like_count, :retweets)
     render json: @tweets.to_json
+    
   end
 
 # /////////////////////BUSCADOR DE TWEETS POR RANGO DE FECHA PARA LA API//////////////////////////

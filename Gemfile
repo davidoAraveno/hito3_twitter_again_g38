@@ -18,6 +18,10 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'rails-erd', '~> 1.4', '>= 1.4.7'
 
+gem 'pluck_to_hash'
+
+gem 'faker'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

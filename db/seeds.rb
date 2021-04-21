@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
+require 'faker'
 Image.destroy_all
 Like.destroy_all
 Tweet.destroy_all
@@ -85,4 +85,31 @@ Image.create([
 
 ]);
 
+50.times do |i|
+    User.create(
+        [
+            {
+                name: Faker::Name.name,
+                photo: Faker::LoremFlickr.image,
+                email: Faker::Internet.email,
+                password: Faker::Internet.password
+            },
+
+        ]
+    )
+end
+
+User.all.each do |u|
+    Tweet.create(
+        [
+            {
+                content: Faker::Lorem.paragraph_by_chars(number: 20),
+                user_id: u.id,
+                retweets: rand(100),
+                like_count: rand(500)
+
+            }
+        ]
+    )
+end
 
